@@ -17,10 +17,7 @@
  * Implementation adapted from CONRAD
  * PYRO-NN is developed as an Open Source project under the Apache License, Version 2.0.
 */
-#if GOOGLE_CUDA
-#define EIGEN_USE_GPU
-#include "third_party/eigen3/unsupported/Eigen/CXX11/Tensor"
-#include "tensorflow/core/framework/op_kernel.h"
+
 #include "helper_headers/helper_grid.h"
 #include "helper_headers/helper_math.h"
 #include "tensorflow/core/framework/types.pb.h"
@@ -223,7 +220,7 @@ __global__ void project_3Dcone_beam_kernel( const float* volume_ptr, float *pSin
 void Cone_Projection_Kernel_Launcher(const float* volume_ptr, float *out, const float *inv_AR_matrix, const float *src_points, 
                                     const int number_of_projections, const int volume_width, const int volume_height, const int volume_depth, 
                                     const float volume_spacing_x, const float volume_spacing_y, const float volume_spacing_z,
-                                    const int detector_width, const int detector_height, const float step_size, tensorflow::OpKernelContext *context)
+                                    const int detector_width, const int detector_height, const float step_size)
 {
     //COPY inv AR matrix to graphics card as float array
     auto matrices_size_b = number_of_projections * 9 * sizeof(float);
@@ -257,4 +254,3 @@ void Cone_Projection_Kernel_Launcher(const float* volume_ptr, float *out, const 
     gpuErrchk(cudaFree(d_src_points));
 }
 
-#endif

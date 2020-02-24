@@ -62,7 +62,7 @@ output: A Tensor.
 void Cone_Projection_Kernel_Launcher(const float *volume_ptr, float *out, const float *inv_AR_matrix, const float *src_points, const int number_of_projections,
                                     const int volume_width, const int volume_height, const int volume_depth, 
                                     const float volume_spacing_x, const float volume_spacing_y, const float volume_spacing_z,
-                                    const int detector_width, const int detector_height, const float step_size, tensorflow::OpKernelContext *context);
+                                    const int detector_width, const int detector_height, const float step_size);
 
 void Cone_Projection_Kernel_Tex_Interp_Launcher(const float *volume_ptr, float *out, const float *inv_AR_matrix, const float *src_points, const int number_of_projections,
                                                 const int volume_width, const int volume_height, const int volume_depth, 
@@ -229,7 +229,7 @@ class ConeProjection3DOp : public OpKernel
             // Call the cuda kernel launcher
             Cone_Projection_Kernel_Launcher(input.data(), output.data(), inv_AR_matrix.data(), src_points.data(), number_of_projections,
                                         volume_width, volume_height, volume_depth, volume_spacing_x, volume_spacing_y, volume_spacing_z,
-                                        detector_size_x, detector_size_y,step_size, context);
+                                        detector_size_x, detector_size_y,step_size);
         }
     }
 };
