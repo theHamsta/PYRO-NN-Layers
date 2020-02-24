@@ -22,7 +22,6 @@
 #define HELPER_GEOMETRY_GPU_H
 
 #include "helper_math.h"
-#include <Eigen/Dense>
 
 inline __device__ float2 intersectLines2D(float2 p1, float2 p2, float2 p3, float2 p4)
 {

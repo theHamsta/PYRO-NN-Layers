@@ -20,7 +20,7 @@
 #include "helper_headers/helper_geometry_gpu.h"
 #include "helper_headers/helper_grid.h"
 #include "helper_headers/helper_math.h"
-#include "third_party/eigen3/unsupported/Eigen/CXX11/Tensor"
+
 
 texture<float, cudaTextureType2D, cudaReadModeElementType> sinogram_as_texture;
 #define CUDART_INF_F __int_as_float(0x7f800000)

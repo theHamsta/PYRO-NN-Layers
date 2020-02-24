@@ -17,9 +17,7 @@
  * Implementation partially adapted from CONRAD
  * PYRO-NN is developed as an Open Source project under the Apache License, Version 2.0.
 */
-#if GOOGLE_CUDA
-#define EIGEN_USE_GPU
-#include "third_party/eigen3/unsupported/Eigen/CXX11/Tensor"
+
 #include "helper_headers/helper_grid.h"
 #include "helper_headers/helper_math.h"
 
@@ -110,4 +108,4 @@ void Parallel_Backprojection2D_Kernel_Launcher(const float *sinogram_ptr, float 
     cudaFree(d_rays);
 }
 
-#endif
+

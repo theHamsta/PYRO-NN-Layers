@@ -18,11 +18,8 @@
  * PYRO-NN is developed as an Open Source project under the Apache License,
  * Version 2.0.
  */
-#if GOOGLE_CUDA
-#define EIGEN_USE_GPU
 #include "helper_headers/helper_grid.h"
 #include "helper_headers/helper_math.h"
-#include "third_party/eigen3/unsupported/Eigen/CXX11/Tensor"
 
 texture<float, cudaTextureType2D, cudaReadModeElementType> volume_as_texture;
 #define CUDART_INF_F __int_as_float(0x7f800000)
@@ -223,4 +220,4 @@ void Parallel_Projection2D_Kernel_Launcher(
   cudaFree(d_rays);
 }
 
-#endif
+

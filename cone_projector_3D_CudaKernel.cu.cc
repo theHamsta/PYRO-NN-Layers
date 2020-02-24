@@ -20,11 +20,12 @@
 
 #include "helper_headers/helper_grid.h"
 #include "helper_headers/helper_math.h"
-#include "tensorflow/core/framework/types.pb.h"
 #define CUDART_INF_F __int_as_float(0x7f800000)
 
 #define BLOCKSIZE_X           16
 #define BLOCKSIZE_Y           16
+
+#include <cstdio>
 
 #define gpuErrchk(ans) { gpuAssert((ans), __FILE__, __LINE__); }
 inline void gpuAssert(cudaError_t code, const char *file, int line, bool abort=true)
