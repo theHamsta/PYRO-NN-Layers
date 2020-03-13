@@ -114,10 +114,6 @@ void Cone_Backprojection3D_Kernel_Tex_Interp_Launcher(
     const float projection_multiplier) {
   // COPY matrix to graphics card as float array
   auto matrices_size_b = number_of_projections * 12 * sizeof(float);
-  float *d_projection_matrices;
-  gpuErrchk(cudaMalloc(&d_projection_matrices, matrices_size_b));
-  gpuErrchk(cudaMemcpy(d_projection_matrices, projection_matrices,
-                       matrices_size_b, cudaMemcpyHostToDevice));
 
   uint3 volume_size = make_uint3(volume_width, volume_height, volume_depth);
   float3 volume_spacing =
@@ -169,10 +165,9 @@ void Cone_Backprojection3D_Kernel_Tex_Interp_Launcher(
   const dim3 block = dim3(BLOCKSIZE_X, BLOCKSIZE_Y, BLOCKSIZE_Z);
 
   backproject_3Dcone_beam_kernel_tex_interp<<<grid, block>>>(
-      out, d_projection_matrices, number_of_projections, volume_size,
+      out, projection_matrices, number_of_projections, volume_size,
       volume_spacing, volume_origin, projection_multiplier);
 
   gpuErrchk(cudaUnbindTexture(sinogram_as_texture));
   gpuErrchk(cudaFreeArray(projArray));
-  gpuErrchk(cudaFree(d_projection_matrices));
 }
