@@ -43,7 +43,7 @@ inline void gpuAssert(cudaError_t code, const char *file, int line,
   }
 }
 
-inline __device__ float3 map(float3 coordinates, float *d_projection_matrices,
+inline __device__ float3 map(float3 coordinates, const float *d_projection_matrices,
                              int n) {
   const float *matrix = &(d_projection_matrices[n * 12]);
 
@@ -56,7 +56,7 @@ inline __device__ float3 map(float3 coordinates, float *d_projection_matrices,
 }
 
 __global__ void backproject_3Dcone_beam_kernel_tex_interp(
-    float *vol, float *d_projection_matrices, const int number_of_projections,
+    float *vol, const float *d_projection_matrices, const int number_of_projections,
     const uint3 volume_size, const float3 volume_spacing,
     const float3 volume_origin, const float projection_multiplier) {
   const int i = blockIdx.x * blockDim.x + threadIdx.x;
